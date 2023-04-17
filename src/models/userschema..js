@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import AuthRoles from "../utils/authRoles.js"
+import bcrypt from "bcryptjs"
 
 const userSchema = mongoose.Schema({
     name: {
@@ -25,5 +26,20 @@ const userSchema = mongoose.Schema({
     forgotPasswordToken: String,
     forgotPasswordExpiry: Date
 }, {timestamps:true})
+
+// Encrypt pswd before save
+
+userSchema.pre("save", async function(next){
+    if(!this.isModified("password")) return next()
+    this.password = await bcrypt.hash(this.password, 10)
+    next()
+}) // Can't use arrow function in some hooks in mongoose like pre
+
+userSchema.methods = {
+    // compare pswd
+    comparePassword: async function(enteredPassword){
+        return await bcrypt.compare(enteredPassword, this.password)
+    }
+}
 
 exports.default = mongoose.model("User", userSchema)
