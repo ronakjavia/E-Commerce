@@ -4,4 +4,4 @@ const AuthRoles = {
     USER: "USER"
 }
 
-exports.default = AuthRoles
+export default AuthRoles

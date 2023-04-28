@@ -32,7 +32,7 @@ const userSchema = mongoose.Schema({
 
 // Encrypt pswd before save
 
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) { // next == middleware
     if (!this.isModified("password")) return next()
     this.password = await bcrypt.hash(this.password, 10)
     next()
