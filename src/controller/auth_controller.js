@@ -118,9 +118,9 @@ export const forgotPassword = asyncHandler(async (req, res) => {
 
     await user.save({ validateBeforeSave: false })
 
-    const reserUrl = `${req.protocol}://${req.get("host")}/api/vi/auth/password/reset/${resetToken}`
+    const resetUrl = `${req.protocol}://${req.get("host")}/api/vi/auth/password/reset/${resetToken}`
 
-    const message = `YOur Password Reset Token is as follow \n\n ${resetToken} \n\n if this was not you pls ignore.`
+    const message = `Your Password Reset Token is as follow \n\n ${resetUrl} \n\n if this was not you pls ignore.`
 
     try {
         const options = {
