@@ -165,9 +165,8 @@ export const resetPassword = asyncHandler(async (req, res) => {
     await user.save()
 
     //optional
-
     const token = user.getJWT()
-    res.cookie("token", toke, cookieOpt)
+    res.cookie("token", token, cookieOpt)
 
     res.status(200).json({
         success:true,
